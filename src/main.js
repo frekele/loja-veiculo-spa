@@ -3,8 +3,12 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import axios from "axios/index";
 
-Vue.config.productionTip = false
+Vue.prototype.baseUrlAPI = 'http://localhost:1234/api/';
+Vue.prototype.axios = axios;
+
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
@@ -12,4 +16,4 @@ new Vue({
   router,
   components: { App },
   template: '<App/>'
-})
+});
