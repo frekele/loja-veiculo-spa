@@ -6,13 +6,14 @@
                 <div class="card-horizontal">
                     <div class="img-square-wrapper">
                         <img style="max-height: 300px" v-if="anuncio.imagem_capa" class="responsive-img" :src="'http://localhost:1234/upload/anuncio/' + anuncio.id_anuncio + '/' + anuncio.imagem_capa">
+                        <img style="max-height: 300px" v-else class="responsive-img" :src="/static/img/sem-veicluo.png">
                     </div>
                     <div class="card-body">
                         <h3 style="color: #b9b9b9; font-weight: 700; font-size: 14px;">{{ anuncio.veiculo.fabricante.nome }}</h3>
                         <h4>{{ anuncio.veiculo.descricao }}</h4>
                         <h2>R$ {{ anuncio.valor}}</h2>
 
-                        <div class="col-6">
+                        <div class="col-6" style="padding-left: 0px; margin-top: 30px">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
                                     <b>Modelo:</b> <span>{{ anuncio.veiculo.ano_modelo }}</span>
@@ -33,7 +34,6 @@
                     </div>
                 </div>
             </div>
-            <!--<div class="clearfix" v-if="((index + 1) % 2 == 0)"></div>-->
         </div>
         <div class="col-lg-12" v-if="anuncios.length == 0">
             <div class="d-flex justify-content-center">
@@ -101,6 +101,10 @@
 
     div.margin-bt {
         margin-bottom: 30px;
+    }
+
+    .list-group-flush li {
+        padding: 5px 0px;
     }
 
     /*.customscrollbar{*/
