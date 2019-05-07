@@ -7,6 +7,10 @@ import axios from "axios/index";
 
 Vue.prototype.baseUrlAPI = 'http://localhost:1234/api/';
 Vue.prototype.axios = axios;
+Vue.prototype.formatMoeda = function (v) {
+  v =  parseFloat(v);
+  return v.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+};
 
 Vue.config.productionTip = false;
 

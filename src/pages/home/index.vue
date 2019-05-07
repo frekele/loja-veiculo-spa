@@ -11,7 +11,7 @@
                     <div class="card-body">
                         <h3 style="color: #b9b9b9; font-weight: 700; font-size: 14px;">{{ anuncio.veiculo.fabricante.nome }}</h3>
                         <h4>{{ anuncio.veiculo.descricao }}</h4>
-                        <h2>R$ {{ anuncio.valor}}</h2>
+                        <h2>{{ anuncio.valor }}</h2>
 
                         <div class="col-6" style="padding-left: 0px; margin-top: 30px">
                             <ul class="list-group list-group-flush">
@@ -30,7 +30,7 @@
                             </ul>
                         </div>
 
-                        <router-link class="btn btn-success float-right" style="color: white" :to="{ name: 'anuncio', params: { id: anuncio.id_anuncio }}">Saiba Mais</router-link>
+                        <router-link class="btn btn-success btn-sm float-right" style="color: white" :to="{ name: 'anuncio', params: { id: anuncio.id_anuncio }}">Saiba Mais</router-link>
                     </div>
                 </div>
             </div>
