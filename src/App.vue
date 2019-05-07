@@ -4,7 +4,7 @@
       <navbar />
     </header>
     <div style="background-color: #f6f6f6; min-height: 100vh; padding: 20px;">
-      <div class="container">
+      <div class="container" style="margin-top: 30px">
         <router-view />
       </div>
     </div>

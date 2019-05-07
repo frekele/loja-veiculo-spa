@@ -1,20 +1,18 @@
 <template>
     <div class="row">
         <div class="col-12">
+            <h5 v-if="anuncio">Anuncio {{ anuncio.veiculo.descricao }}</h5>
             <div class="card" style="margin-top: 15px;">
                 <div class="card-horizontal">
                     <div class="card-body">
                         <div v-if="anuncio">
                             <div class="row">
-                                <div class="col-12">
-                                    <h5>Anuncio {{ anuncio.veiculo.descricao }}</h5>
-                                </div>
                                 <div class="col-5">
                                     <div v-if="anuncio.veiculo.imagem.length > 0">
                                         <div id="carousel_imagens" class="carousel slide" data-ride="carousel">
                                             <div class="carousel-inner">
-                                                <div v-for="(imagem, index) in anuncio.veiculo.imagem" class="carousel-item" :class="index == 1 ? 'active' : ''">
-                                                    <img style="max-height: 300px" :src="'http://localhost:1234/upload/veiculo/' + imagem.id_veiculo + '/' + imagem.imagem" class="responsive-img">
+                                                <div v-for="(imagem, index) in anuncio.veiculo.imagem" class="carousel-item" :class="index == 0 ? 'active' : ''">
+                                                    <img style="max-width: 400px; height: auto" :src="'http://localhost:1234/upload/veiculo/' + imagem.id_veiculo + '/' + imagem.imagem" class="responsive-img">
                                                 </div>
                                             </div>
                                             <a class="carousel-control-prev" href="#carousel_imagens" role="button" data-slide="prev">
@@ -27,11 +25,11 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div v-else-if="anuncio.imagem_capa.length !== null">
-                                        <img style="max-height: 300px; width: auto" :src="'http://localhost:1234/upload/anuncio/' + anuncio.id_anuncio + '/' + anuncio.imagem_capa" class="responsive-img">
+                                    <div v-else-if="anuncio.imagem_capa !== null">
+                                        <img style="max-width: 400px; height: auto" :src="'http://localhost:1234/upload/anuncio/' + anuncio.id_anuncio + '/' + anuncio.imagem_capa" class="responsive-img">
                                     </div>
                                     <div v-else>
-                                        <img style="max-height: 300px; width: auto" :src="/static/img/sem-veicluo.png" class="responsive-img">
+                                        <img style="max-width: 400px; height: auto" :src="'/static/img/sem-veiculo.png'" class="responsive-img">
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -59,7 +57,7 @@
                                         </li>
                                     </ul>
                                     <h2>
-                                        {{ this.formatMoeda(anuncio.valor) }}
+                                        {{ formatMoeda(anuncio.valor) }}
                                         <button type="button" data-toggle="modal" data-target="#modal_contato" class="btn btn-success float-right">Envie sua proposta</button>
                                     </h2>
                                 </div>
@@ -78,11 +76,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div v-else class="col-lg-12">
+                        <div v-if="loading" class="col-lg-12">
                             <div class="d-flex justify-content-center">
                                 <div class="spinner-border" role="status">
                                     <span class="sr-only">Loading...</span>
                                 </div>
+                            </div>
+                        </div>
+                        <div v-if="semAnuncio" class="col-lg-12">
+                            <div class="d-flex justify-content-center">
+                                <p>Anúncio não encontrado</p>
                             </div>
                         </div>
                     </div>
@@ -132,7 +135,9 @@
         data () {
             return {
                 anuncio: null,
-                contato: {}
+                contato: {},
+                loading: true,
+                semAnuncio: false,
             }
         },
         methods: {
@@ -144,7 +149,14 @@
                     .axios
                     .get(urlBuscaApi, {})
                     .then(response => {
-                        this.anuncio = response.data.anuncio;
+
+                        let anuncio = response.data.anuncio;
+                        this.loading = false;
+                        this.anuncio = anuncio;
+
+                        if (anuncio === null) {
+                            this.semAnuncio = true;
+                        }
                     });
             },
             realizarContato: function () {

@@ -5,7 +5,7 @@ import Index from '@/pages/home/index'
 import Anuncio from '@/pages/anuncio/index'
 import NotFound from '@/pages/not-found'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   mode: 'history',
