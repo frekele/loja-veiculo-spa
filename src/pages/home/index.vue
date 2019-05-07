@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h5>Destaques</h5>
-            <div class="card" v-for="(anuncio, index) in anuncios" style="margin-top: 15px;">
+            <div class="card" v-for="(anuncio, index) in $store.getters.getAnuncios" style="margin-top: 15px;">
                 <div class="card-horizontal">
                     <div class="img-square-wrapper">
                         <img style="max-height: 300px" v-if="anuncio.imagem_capa" class="responsive-img" :src="'http://localhost:1234/upload/anuncio/' + anuncio.id_anuncio + '/' + anuncio.imagem_capa">
@@ -35,7 +35,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-12" v-if="anuncios.length == 0">
+        <div class="col-lg-12" v-if="$store.getters.getAnuncios.length == 0">
             <div class="d-flex justify-content-center">
                 <div class="spinner-border" role="status">
                     <span class="sr-only">Loading...</span>
@@ -57,17 +57,14 @@
             getVeiculos: function () {
 
                 let urlBuscaApi = this.baseUrlAPI + 'anuncio';
-
                 this
                     .axios
                     .get(urlBuscaApi, {
-                        params: {
-                            // palavra: this.selecionados.palavra,
-                            // categoria: 3,
-                            // marca: this.selecionados.marca,
-                        }
+                        params: this.$store.getters.getSelecionados
                     }).then(response => {
-                        this.anuncios = response.data.anuncios;
+                        for (let i in  response.data.anuncios) {
+                            this.$store.commit('addAnuncio', response.data.anuncios[i]);
+                        }
                     });
             }
         },
