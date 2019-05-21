@@ -55,7 +55,6 @@
 
                     if (data.success) {
 
-                        console.log(data);
                         this.$store.commit('setUsuario', JSON.stringify(data.usuario));
                         this.$router.push('home');
                     } else {
