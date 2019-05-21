@@ -3,6 +3,8 @@ import Router from 'vue-router'
 
 import Home from '@/pages/home/index'
 import Anuncio from '@/pages/anuncio/index'
+import Opcional from '@/pages/opcional/index'
+import OpcionalCadastro from '@/pages/opcional/form'
 import NotFound from '@/pages/not-found'
 import Login from '@/pages/login'
 
@@ -25,6 +27,21 @@ const router = new Router({
       path: '/adm/anuncio/:id',
       name: 'anuncio',
       component: Anuncio
+    },
+    {
+      path: '/adm/opcional',
+      name: 'opcional',
+      component: Opcional,
+    },
+    {
+      path: '/adm/opcional/cadastro',
+      name: 'opcional/cadastro',
+      component: OpcionalCadastro,
+    },
+    {
+      path: '/adm/opcional/editar/:id',
+      name: 'opcional/editar',
+      component: OpcionalCadastro,
     },
     { path: '*', component: NotFound }
   ]
