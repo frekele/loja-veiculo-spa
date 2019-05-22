@@ -19,6 +19,11 @@ const router = new Router({
       component: Home,
     },
     {
+      path: '/adm/anuncio',
+      name: 'anuncio',
+      component: Anuncio,
+    },
+    {
       path: '/login',
       name: 'login',
       component: Login,
@@ -53,23 +58,15 @@ router.beforeEach((to, from, next) => {
 
   if (re.test(to.fullPath)) {
 
-  } else if (to.fullPath === '/login') {
+    if (sessionStorage.getItem('usuario') === null) {
+      next({ name: 'login' });
+    } else {
+      next();
+    }
 
+  } else {
+      next();
   }
-
-
-  // if (to.fullPath === '/users') {
-  //   if (!store.state.accessToken) {
-  //     next('/login');
-  //   }
-  // }
-  // if (to.fullPath === '/login') {
-  //   if (store.state.accessToken) {
-  //     next('/users');
-  //   }
-  // }
-  // console.log((to.fullPath.));
-  next();
 });
 
 export default router;

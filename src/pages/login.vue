@@ -51,21 +51,21 @@
 
                 this.axios.post(this.baseUrlAPI + 'login', this.usuario).then(response => {
 
-                    let data = response.data;
+                    this.$store.commit('setUsuario', JSON.stringify(response.data.usuario));
+                    this.$router.push('adm');
 
-                    if (data.success) {
-
-                        this.$store.commit('setUsuario', JSON.stringify(data.usuario));
-                        this.$router.push('home');
-                    } else {
-                       alert('usuario ou senha invalido');
+                }).catch(error => {
+                    if (error.response.status === 401) {
+                        alert('usuario ou senha invalido');
                     }
-                })
-                // this.axios.post();
-                // alert('asd');
+                });
             }
         },
         mounted () {
+            if (this.$store.getters.getUsuario !== null) {
+                this.$router.push('adm');
+            }
+
             $('body').css('background', '#e9ecef');
         },
     }
