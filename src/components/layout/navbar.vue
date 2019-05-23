@@ -8,27 +8,24 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <router-link style="color: white" :to="{ name: 'logout'}" class="nav-link">
+                    <a style="color: black" v-on:click="logout" class="nav-link">
                         Sair
                         <i class="fa fa-arrow-right"></i>
-                    </router-link>
+                    </a>
                 </li>
             </ul>
         </nav>
         <aside class="main-sidebar sidebar-dark-primary elevation-4" style="min-height: 600px;">
-            <a class="brand-link">
-                <span>RF</span>
+            <router-link :to="{ name: 'anuncio'}" class="nav-link text-center text-white">
+                <span>Loja de </span>
                 <span class="brand-text font-weight-light">
                     <i>Veiculos</i>
                 </span>
-            </a>
+            </router-link>
             <div class="sidebar">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <!--<img :src="" class="img-circle elevation-2" alt="User Image">-->
-                    </div>
-                    <div class="info">
-                        <!--<a href="{{ base_url() ~ '/adm/usuario/perfil' }}" class="d-block">{{ getUserSession().login }}</a>-->
+                    <div class="info text-white">
+                        {{ $store.getters.getUsuario.login }}
                     </div>
                 </div>
                 <nav class="mt-2">
@@ -48,30 +45,29 @@
                                         <p>Anuncio</p>
                                     </router-link>
                                 </li>
+                                <li class="nav-item">
+                                    <router-link style="color: white" :to="{ name: 'opcional'}" class="nav-link">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>Opcional</p>
+                                    </router-link>
+                                </li>
                             </ul>
                         </li>
                     </ul>
                 </nav>
             </div>
         </aside>
-
-
-
-
-
-        <!--<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark nav-h">-->
-            <!--<div class="container">-->
-                <!--<router-link style="color: white" :to="{ name: 'index'}" class="black-text">Loja de veículos</router-link>-->
-                <!--<div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</nav>-->
     </div>
 </template>
 
 <script>
     export default {
         name: 'navbar',
+        methods: {
+            logout: function () {
+                alert('saindo');
+            },
+        },
     }
 </script>
 

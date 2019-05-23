@@ -24,7 +24,7 @@ var store = {
     getUsuario: state => {
 
       if (sessionStorage.getItem('usuario') !== null) {
-        state.usuario = sessionStorage.getItem('usuario');
+        state.usuario = JSON.parse(sessionStorage.getItem('usuario'));
       }
 
       return state.usuario;
