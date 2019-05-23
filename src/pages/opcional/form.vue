@@ -49,7 +49,31 @@
                 })
             },
             save: function () {
-                alert('asd');
+                if (typeof this.$route.params.id === 'undefined') {
+
+                    this.axios({
+                        method: 'post',
+                        url: this.baseUrlAPI + 'opcional/cadastro',
+                        data: this.opcional,
+                        headers: { Authorization: 'Bearer ' +  this.$store.getters.getUsuario.token }
+                    }).then(response => {
+                        this.$router.push({name: 'opcional'});
+                    }).catch(response => {
+                        alert('erro ao salvar' + response.data.message)
+                    });
+
+                } else {
+                    this.axios({
+                        method: 'put',
+                        url: this.baseUrlAPI + 'opcional/editar',
+                        data: this.opcional,
+                        headers: { Authorization: 'Bearer ' +  this.$store.getters.getUsuario.token }
+                    }).then(response => {
+                        this.$router.push({name: 'opcional'});
+                    }).catch(response => {
+                        alert('erro ao salvar' + response.data.message)
+                    });
+                }
             }
         },
         mounted() {
