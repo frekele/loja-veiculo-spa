@@ -46,6 +46,12 @@
                                     </router-link>
                                 </li>
                                 <li class="nav-item">
+                                    <router-link style="color: white" :to="{ name: 'categoria'}" class="nav-link">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>Categoria</p>
+                                    </router-link>
+                                </li>
+                                <li class="nav-item">
                                     <router-link style="color: white" :to="{ name: 'opcional'}" class="nav-link">
                                         <i class="fa fa-circle-o nav-icon"></i>
                                         <p>Opcional</p>

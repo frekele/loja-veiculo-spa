@@ -3,6 +3,8 @@ import Router from 'vue-router'
 
 import Home from '@/pages/home/index'
 import Anuncio from '@/pages/anuncio/index'
+import Categoria from '@/pages/categoria/index';
+import CategoriaCadastro from '@/pages/categoria/form'
 import Opcional from '@/pages/opcional/index';
 import OpcionalCadastro from '@/pages/opcional/form'
 import NotFound from '@/pages/not-found'
@@ -32,6 +34,21 @@ const router = new Router({
       path: '/adm/anuncio/:id',
       name: 'anuncio',
       component: Anuncio
+    },
+    {
+      path: '/adm/categoria',
+      name: 'categoria',
+      component: Categoria,
+    },
+    {
+      path: '/adm/categoria/cadastro',
+      name: 'categoria/cadastro',
+      component: CategoriaCadastro,
+    },
+    {
+      path: '/adm/categoria/editar/:id',
+      name: 'categoria/editar',
+      component: CategoriaCadastro,
     },
     {
       path: '/adm/opcional',
