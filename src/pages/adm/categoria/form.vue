@@ -15,7 +15,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <router-link :to="{ name: 'categoria'}" class="btn btn-sm btn-default">Voltar</router-link>
+                            <router-link :to="{ name: 'adm.categoria'}" class="btn btn-sm btn-default">Voltar</router-link>
                             <button v-on:click="save" class="btn btn-primary btn-sm">Salvar</button>
                         </div>
                     </div>
@@ -27,10 +27,10 @@
 
 <script>
     import Navbar from '@/components/layout/navbar'
-    import ContentWrapper from "../../components/layout/content-wrapper";
+    import ContentWrapper from "@/components/layout/content-wrapper";
 
     export default {
-        name: 'home',
+        name: 'adm.categoria.cadastro',
         components: {
             ContentWrapper,
             Navbar,
@@ -49,31 +49,22 @@
                 })
             },
             save: function () {
-                if (typeof this.$route.params.id === 'undefined') {
 
-                    this.axios({
-                        method: 'post',
-                        url: this.baseUrlAPI + 'categoria/cadastro',
-                        data: this.categoria,
-                        headers: { Authorization: 'Bearer ' +  this.$store.getters.getUsuario.token }
-                    }).then(response => {
-                        this.$router.push({name: 'categoria'});
-                    }).catch(response => {
-                        alert('erro ao salvar' + response.data.message)
-                    });
+                let url = this.baseUrlAPI + 'categoria/';
+                url += (typeof this.$route.params.id === 'undefined') ? 'cadastro' : 'editar/' + this.$route.params.id;
 
-                } else {
-                    this.axios({
-                        method: 'put',
-                        url: this.baseUrlAPI + 'categoria/editar',
-                        data: this.categoria,
-                        headers: { Authorization: 'Bearer ' +  this.$store.getters.getUsuario.token }
-                    }).then(response => {
-                        this.$router.push({name: 'categoria'});
-                    }).catch(response => {
-                        alert('erro ao salvar' + response.data.message)
-                    });
-                }
+                let method = (typeof this.$route.params.id === 'undefined') ? 'post' : 'put';
+
+                this.axios({
+                    method: method,
+                    url: url,
+                    data: this.categoria,
+                    headers: { Authorization: 'Bearer ' +  this.$store.getters.getUsuario.token }
+                }).then(response => {
+                    this.$router.push({name: 'adm.categoria'});
+                }).catch(response => {
+                    alert('Erro ao salvar' + response.data.message)
+                });
             }
         },
         mounted() {

@@ -9,30 +9,13 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <router-link :to="{ name: 'categoria/cadastro'}" class="btn btn-sm btn-default">
+                            <router-link :to="{ name: 'adm.categoria.cadastro'}" class="btn btn-sm btn-default">
                                 Cadastrar Categoria
                                 <i class="fa fa-plus"></i>
                             </router-link>
                         </div>
                         <div class="card-body table-responsive p-0">
-                            <table class="table table-hover">
-                                <thead>
-                                <tr>
-                                    <th>Descricao</th>
-                                    <th>Acao</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr v-for="categoria in categorias">
-                                    <td>{{ categoria.nome }}</td>
-                                    <td>
-                                        <router-link :to="{ name: 'categoria/editar', params: { id: categoria.id_veiculo_categoria }}" class="btn btn-sm btn-primary">
-                                            Editar
-                                        </router-link>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                            <list :tableHead="head" :tableBody="categorias" @editar="editar" />
                         </div>
                     </div>
                 </div>
@@ -43,17 +26,20 @@
 
 <script>
     import Navbar from '@/components/layout/navbar'
-    import ContentWrapper from "../../components/layout/content-wrapper";
+    import ContentWrapper from "@/components/layout/content-wrapper";
+    import List from "@/components/data/list";
 
     export default {
-        name: 'home',
+        name: 'adm.categoria',
         components: {
             ContentWrapper,
             Navbar,
+            List
         },
         data () {
             return {
-                categorias: []
+                categorias: [],
+                head: [{'nome' : 'Descrição'}]
             }
         },
         methods: {
@@ -62,6 +48,9 @@
                     this.categorias = response.data;
                 })
             },
+            editar: function (data) {
+                this.$router.push({name: 'adm.categoria.editar', params: { id: data.id_veiculo_categoria }});
+            }
         },
         mounted() {
             this.getCategorias();

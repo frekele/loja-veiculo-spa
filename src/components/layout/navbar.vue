@@ -8,7 +8,7 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a style="color: black" v-on:click="logout" class="nav-link">
+                    <a v-on:click="logout" style="cursor: pointer" class="nav-link black-text">
                         Sair
                         <i class="fa fa-arrow-right"></i>
                     </a>
@@ -16,7 +16,7 @@
             </ul>
         </nav>
         <aside class="main-sidebar sidebar-dark-primary elevation-4" style="min-height: 600px;">
-            <router-link :to="{ name: 'anuncio'}" class="nav-link text-center text-white">
+            <router-link :to="{ name: 'adm'}" class="nav-link text-center text-white">
                 <span>Loja de </span>
                 <span class="brand-text font-weight-light">
                     <i>Veiculos</i>
@@ -31,7 +31,7 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
+                            <a class="nav-link" style="cursor: pointer">
                                 <i class="nav-icon fa fa-edit"></i>
                                 <p>
                                     Cadastro
@@ -40,21 +40,33 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <router-link style="color: white" :to="{ name: 'anuncio'}" class="nav-link">
+                                    <router-link style="color: white" :to="{ name: 'adm.anuncio'}" class="nav-link">
                                         <i class="fa fa-circle-o nav-icon"></i>
                                         <p>Anuncio</p>
                                     </router-link>
                                 </li>
                                 <li class="nav-item">
-                                    <router-link style="color: white" :to="{ name: 'categoria'}" class="nav-link">
+                                    <router-link style="color: white" :to="{ name: 'adm.categoria'}" class="nav-link">
                                         <i class="fa fa-circle-o nav-icon"></i>
                                         <p>Categoria</p>
                                     </router-link>
                                 </li>
                                 <li class="nav-item">
-                                    <router-link style="color: white" :to="{ name: 'opcional'}" class="nav-link">
+                                    <router-link style="color: white" :to="{ name: 'adm.opcional'}" class="nav-link">
                                         <i class="fa fa-circle-o nav-icon"></i>
                                         <p>Opcional</p>
+                                    </router-link>
+                                </li>
+                                <li class="nav-item">
+                                    <router-link style="color: white" :to="{ name: 'adm.fabricante'}" class="nav-link">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>Fabricante</p>
+                                    </router-link>
+                                </li>
+                                <li class="nav-item">
+                                    <router-link style="color: white" :to="{ name: 'adm.combustivel'}" class="nav-link">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>Tipo Combustível</p>
                                     </router-link>
                                 </li>
                             </ul>
@@ -71,7 +83,10 @@
         name: 'navbar',
         methods: {
             logout: function () {
-                alert('saindo');
+                sessionStorage.removeItem('usuario');
+                setTimeout(() => {
+                    window.location.reload();
+                }, 100);
             },
         },
     }

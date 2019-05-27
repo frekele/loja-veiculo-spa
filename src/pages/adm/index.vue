@@ -11,10 +11,10 @@
 
 <script>
     import Navbar from '@/components/layout/navbar'
-    import ContentWrapper from "../../components/layout/content-wrapper";
+    import ContentWrapper from "@/components/layout/content-wrapper";
 
     export default {
-        name: 'home',
+        name: 'adm',
         components: {
             ContentWrapper,
             Navbar,

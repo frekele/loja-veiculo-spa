@@ -9,30 +9,13 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <router-link :to="{ name: 'opcional/cadastro'}" class="btn btn-sm btn-default">
+                            <router-link :to="{ name: 'adm.opcional.cadastro'}" class="btn btn-sm btn-default">
                                 Cadastrar Opcional
                                 <i class="fa fa-plus"></i>
                             </router-link>
                         </div>
                         <div class="card-body table-responsive p-0">
-                            <table class="table table-hover">
-                                <thead>
-                                <tr>
-                                    <th>Descricao</th>
-                                    <th>Acao</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="opcional in opcionais">
-                                        <td>{{ opcional.nome }}</td>
-                                        <td>
-                                            <router-link :to="{ name: 'opcional/editar', params: { id: opcional.id_opcional }}" class="btn btn-sm btn-primary">
-                                                Editar
-                                            </router-link>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <list :tableHead="head" :tableBody="opcionais" @editar="editar" />
                         </div>
                     </div>
                 </div>
@@ -42,18 +25,21 @@
 </template>
 
 <script>
-    import Navbar from '@/components/layout/navbar'
-    import ContentWrapper from "../../components/layout/content-wrapper";
+    import Navbar from '@/components/layout/navbar';
+    import ContentWrapper from "@/components/layout/content-wrapper";
+    import List from "@/components/data/list";
 
     export default {
-        name: 'home',
+        name: 'adm.opcional',
         components: {
             ContentWrapper,
             Navbar,
+            List
         },
         data () {
             return {
-                opcionais: []
+                opcionais: [],
+                head: [{'nome' : 'Descrição'}]
             }
         },
         methods: {
@@ -62,6 +48,9 @@
                     this.opcionais = response.data;
                 })
             },
+            editar: function (data) {
+                this.$router.push({name: 'adm.opcional.editar', params: { id: data.id_opcional }});
+            }
         },
         mounted() {
             this.getOpcionais();

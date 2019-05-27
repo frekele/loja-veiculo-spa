@@ -52,7 +52,7 @@
                 this.axios.post(this.baseUrlAPI + 'login', this.usuario).then(response => {
 
                     this.$store.commit('setUsuario', JSON.stringify(response.data.usuario));
-                    this.$router.push('adm');
+                    this.$router.push({ name: 'adm' });
 
                 }).catch(error => {
                     if (error.response.status === 401) {
@@ -63,7 +63,7 @@
         },
         mounted () {
             if (this.$store.getters.getUsuario !== null) {
-                this.$router.push('adm');
+                this.$router.push({ name: 'adm' });
             }
 
             $('body').css('background', '#e9ecef');
