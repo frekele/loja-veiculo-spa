@@ -2,15 +2,15 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th v-for="head in tableHead">{{ head.nome }}</th>
+                <th v-for="head in columnName">{{ head }}</th>
                 <th>Ação</th>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="data in tableBody">
-                <td>{{ data.nome }}</td>
+            <tr v-for="d in data">
+                <td v-for="column in columnData">{{ d[column] }}</td>
                 <td>
-                    <button v-on:click="editar(data)" class="btn btn-sm btn-primary">
+                    <button v-on:click="editar(d)" class="btn btn-sm btn-primary">
                         Editar
                     </button>
                 </td>
@@ -21,7 +21,7 @@
 <script>
     export default {
         name: 'List',
-        props: [ 'tableHead', 'tableBody' ],
+        props: ['columnName', 'data', 'columnData'],
         methods: {
             editar(data) {
                 this.$emit('editar', data);

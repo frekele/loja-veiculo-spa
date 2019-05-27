@@ -11,6 +11,8 @@ import Fabricante from '@/pages/adm/fabricante/index';
 import FabricanteCadastro from '@/pages/adm/fabricante/form'
 import Combustivel from '@/pages/adm/combustivel/index';
 import CombustivelCadastro from '@/pages/adm/combustivel/form'
+import Veiculo from '@/pages/adm/veiculo/index';
+import VeiculoCadastro from '@/pages/adm/veiculo/form'
 
 import NotFound from '@/pages/not-found'
 import Login from '@/pages/login'
@@ -95,6 +97,21 @@ const router = new Router({
       name: 'adm.combustivel.editar',
       component: CombustivelCadastro,
     },
+  {
+      path: '/adm/veiculo',
+      name: 'adm.veiculo',
+      component: Veiculo,
+  },
+  {
+      path: '/adm/veiculo/cadastro',
+      name: 'adm.veiculo.cadastro',
+      component: VeiculoCadastro,
+  },
+  {
+      path: '/adm/veiculo/editar/:id',
+      name: 'adm.veiculo.editar',
+      component: VeiculoCadastro,
+  },
     {
       path: '/login',
       name: 'login',

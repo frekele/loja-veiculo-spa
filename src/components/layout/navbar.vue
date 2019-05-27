@@ -46,6 +46,12 @@
                                     </router-link>
                                 </li>
                                 <li class="nav-item">
+                                    <router-link style="color: white" :to="{ name: 'adm.veiculo'}" class="nav-link">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>Veículo</p>
+                                    </router-link>
+                                </li>
+                                <li class="nav-item">
                                     <router-link style="color: white" :to="{ name: 'adm.categoria'}" class="nav-link">
                                         <i class="fa fa-circle-o nav-icon"></i>
                                         <p>Categoria</p>

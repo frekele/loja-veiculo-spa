@@ -3,19 +3,19 @@
         <navbar />
         <content-wrapper>
             <template v-slot:titulo>
-                Fabricantes
+                Veículos
             </template>
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <router-link :to="{ name: 'adm.fabricante.cadastro' }" class="btn btn-sm btn-default">
-                                Cadastrar Fabricante
+                            <router-link :to="{ name: 'adm.veiculo.cadastro'}" class="btn btn-sm btn-default">
+                                Cadastrar Veículo
                                 <i class="fa fa-plus"></i>
                             </router-link>
                         </div>
                         <div class="card-body table-responsive p-0">
-                            <list :columnName="columnName" :columnData="columnData" :data="fabricantes" @editar="editar" />
+                            <list :columnName="columnName" :columnData="columnData" :data="veiculos" @editar="editar" />
                         </div>
                     </div>
                 </div>
@@ -25,12 +25,12 @@
 </template>
 
 <script>
-    import Navbar from '@/components/layout/navbar'
+    import Navbar from '@/components/layout/navbar';
     import ContentWrapper from "@/components/layout/content-wrapper";
     import List from "@/components/data/list";
 
     export default {
-        name: 'adm.fabricante',
+        name: 'adm.veiculo',
         components: {
             ContentWrapper,
             Navbar,
@@ -38,23 +38,23 @@
         },
         data () {
             return {
-                fabricantes: [],
-                columnName: ['Descrição'],
-                columnData: ['nome'],
+                veiculos: [],
+                columnName: ['Descrição', 'Ano/Modelo', 'Placa'],
+                columnData: ['descricao', 'ano_modelo', 'placa']
             }
         },
         methods: {
-            getFabricantes: function () {
-                this.axios.get(this.baseUrlAPI + 'veiculo/fabricante').then(response => {
-                    this.fabricantes = response.data;
+            getVeiculos: function () {
+                this.axios.get(this.baseUrlAPI + 'veiculo').then(response => {
+                    this.veiculos = response.data;
                 })
             },
             editar: function (data) {
-                this.$router.push({name: 'adm.fabricante.editar', params: { id: data.id_veiculo_fabricante}});
+                this.$router.push({name: 'adm.veiculo.editar', params: { id: data.id_veiculo }});
             }
         },
         mounted() {
-            this.getFabricantes();
+            this.getVeiculos();
         }
     }
 </script>

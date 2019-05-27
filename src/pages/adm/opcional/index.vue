@@ -15,7 +15,7 @@
                             </router-link>
                         </div>
                         <div class="card-body table-responsive p-0">
-                            <list :tableHead="head" :tableBody="opcionais" @editar="editar" />
+                            <list :columnName="columnName" :columnData="columnData" :data="opcionais" @editar="editar" />
                         </div>
                     </div>
                 </div>
@@ -39,7 +39,8 @@
         data () {
             return {
                 opcionais: [],
-                head: [{'nome' : 'Descrição'}]
+                columnName: ['Descrição'],
+                columnData: ['nome'],
             }
         },
         methods: {
