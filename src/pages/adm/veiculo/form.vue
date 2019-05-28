@@ -48,7 +48,7 @@
                                         <div v-for="imagem in todasImagens" class="col-4 text-center">
                                             <img style="max-width: 95%" :src="urlImg + veiculo.id_veiculo + '/' + imagem.imagem">
                                             <br/>
-                                            <button v-on:click="removerImagem(imagem)" class="btn btn-sm">Remover</button>
+                                            <button v-on:click="removerImagem(imagem)" class="btn btn-sm btn-danger">Remover</button>
                                         </div>
                                     </div>
                                 </div>
@@ -56,24 +56,28 @@
                                     <div class="form-group">
                                         <label for="tipo">Tipo de Veículo</label>
                                         <select v-model="veiculo.id_veiculo_tipo" id="tipo" class="form-control">
+                                            <option value="">Selecione</option>
                                             <option v-for="tipo in adicionais.tipos" :value="tipo.id_veiculo_tipo">{{ tipo.nome }}</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="categoria">Categoria</label>
                                         <select v-model="veiculo.id_veiculo_categoria" id="categoria" class="form-control">
+                                            <option value="">Selecione</option>
                                             <option v-for="categoria in adicionais.categorias" :value="categoria.id_veiculo_categoria">{{ categoria.nome }}</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="fabricante">Fabricante</label>
                                         <select v-model="veiculo.id_veiculo_fabricante" id="fabricante" class="form-control">
+                                            <option value="">Selecione</option>
                                             <option v-for="fabricante in adicionais.fabricantes" :value="fabricante.id_veiculo_fabricante">{{ fabricante.nome }}</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="combustivel">Combustível</label>
                                         <select v-model="veiculo.id_veiculo_combustivel" id="combustivel" class="form-control">
+                                            <option value="">Selecione</option>
                                             <option v-for="combustivel in adicionais.tiposCombustivel" :value="combustivel.id_veiculo_combustivel">{{ combustivel.nome }}</option>
                                         </select>
                                     </div>
@@ -180,34 +184,29 @@
                     url += 'editar/' + this.$route.params.id;
                     data = this.veiculo;
 
-                    if (this.veiculo.imagem.length > 0) {
+                    let formData = new FormData();
 
-                        let formData = new FormData();
-
-                        for(var i = 0; i < this.veiculo.imagem.length; i++) {
-                            formData.append('imagem[' + i + ']', this.veiculo.imagem[i]);
-                            formData.append('imagems[' + i + ']', this.veiculo.imagem[i].id_veiculo_imagem);
-                        }
-
-                        for(var i = 0; i < this.veiculo.imagem.length; i++) {
-                            formData.append('imagem[' + i + ']', this.veiculo.imagem[i]);
-                            formData.append('imagems[' + i + ']', this.veiculo.imagem[i].id_veiculo_imagem);
-                        }
-
-                        this.axios({
-                            method: 'post',
-                            url: this.baseUrlAPI + 'veiculo/edit-imagem/' + this.$route.params.id,
-                            data: formData,
-                            headers: {
-                                Authorization: 'Bearer ' +  this.$store.getters.getUsuario.token,
-                                'Content-Type': 'multipart/form-data'
-                            }
-                        }).then(response => {
-                            this.$router.push({name: 'adm.veiculo'});
-                        }).catch(response => {
-                            alert('Erro ao salvar' + response.data.message)
-                        });
+                    for(var i = 0; i < this.veiculo.imagem.length; i++) {
+                        formData.append('imagem[' + i + ']', this.veiculo.imagem[i]);
                     }
+
+                    for(var i = 0; i < this.todasImagens.length; i++) {
+                        formData.append('imagems[' + i + ']', this.todasImagens[i].id_veiculo_imagem);
+                    }
+
+                    this.axios({
+                        method: 'post',
+                        url: this.baseUrlAPI + 'veiculo/edit-imagem/' + this.$route.params.id,
+                        data: formData,
+                        headers: {
+                            Authorization: 'Bearer ' +  this.$store.getters.getUsuario.token,
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    }).then(response => {
+                        this.$router.push({name: 'adm.veiculo'});
+                    }).catch(response => {
+                        alert('Erro ao salvar' + response.data.message)
+                    });
 
                 } else {
                     method = 'post';
