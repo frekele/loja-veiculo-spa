@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import HomeAdm from '@/pages/adm/index'
 import Anuncio from '@/pages/adm/anuncio/index'
+import AnuncioCadastro from '@/pages/adm/anuncio/form'
 import Categoria from '@/pages/adm/categoria/index';
 import CategoriaCadastro from '@/pages/adm/categoria/form'
 import Opcional from '@/pages/adm/opcional/index';
@@ -27,16 +28,21 @@ const router = new Router({
       name: 'adm',
       component: HomeAdm,
     },
-    // {
-    //   path: '/adm/anuncio',
-    //   name: 'adm.anuncio',
-    //   component: Anuncio,
-    // },
-    // {
-    //   path: '/adm/anuncio/:id',
-    //   name: 'anuncio',
-    //   component: Anuncio
-    // },
+    {
+      path: '/adm/anuncio',
+      name: 'adm.anuncio',
+      component: Anuncio,
+    },
+    {
+      path: '/adm/anuncio/cadastro',
+      name: 'adm.anuncio.cadastro',
+      component: AnuncioCadastro,
+    },
+    {
+      path: '/adm/anuncio/editar/:id',
+      name: 'adm.anuncio.editar',
+      component: AnuncioCadastro,
+    },
     {
       path: '/adm/categoria',
       name: 'adm.categoria',

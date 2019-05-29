@@ -1,81 +1,69 @@
 <template>
     <div>
         <navbar />
-        <div class="content-wrapper" style="min-height: calc(100vh - 73px)">
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-12">
+        <content-wrapper>
+            <template v-slot:titulo>
+                Anúncios
+            </template>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <router-link :to="{ name: 'adm.anuncio.cadastro'}" class="btn btn-sm btn-default">
+                                Cadastrar Categoria
+                                <i class="fa fa-plus"></i>
+                            </router-link>
                         </div>
-                        <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Home page</h1>
+                        <div class="card-body table-responsive p-0">
+                            <list :columnName="columnName" :columnData="columnData" :data="anuncios" :format="format" @editar="editar" />
                         </div>
                     </div>
                 </div>
             </div>
-            <section class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <a class="btn btn-default btn-sm">
-                                        Cadastrar Anuncio
-                                        <i class="fa fa-plus"></i>
-                                    </a>
-                                </div>
-                                <div class="card-body table-responsive p-0">
-                                    <table class="table table-hover">
-                                        <thead>
-                                        <tr>
-                                            <th>Descricao</th>
-                                            <th>Ano/Modelo</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr v-for="anuncio in anuncios">
-                                            <td>{{ anuncio.veiculo.descricao }}</td>
-                                            <td>{{ anuncio.veiculo.ano_modelo }}</td>
-                                            <td>
-                                                <!--                                    <a class="btn btn-sm btn-primary" href="{{ base_url() ~ '/adm/anuncio/editar/' ~ anuncio.id_anuncio }}">Editar</a>-->
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2">Nenhum registro encontrado</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
+        </content-wrapper>
     </div>
 </template>
 
 <script>
+    import Navbar from '@/components/layout/navbar'
+    import ContentWrapper from "@/components/layout/content-wrapper";
+    import List from "@/components/data/list";
+
     export default {
-        name: 'index',
+        name: 'adm.anuncio',
+        components: {
+            ContentWrapper,
+            Navbar,
+            List
+        },
         data () {
             return {
-                anuncios: null,
+                anuncios: [],
+                columnName: ['Veículo', 'Valor', 'Ativo'],
+                columnData: ['veiculo.descricao', 'valor', 'ativo'],
+                format: {
+                    ativo: (data) => {
+                        return data === 1 ? 'Sim' : 'Não'
+                    },
+                    valor: (data) => {
+                        return data;
+                    }
+                }
             }
         },
         methods: {
-            getAnuncios: function () {
-
-                let urlBuscaApi = this.baseUrlAPI + 'anuncio';
-
-                this.axios.get(urlBuscaApi).then(response => {
-                    this.anuncios = response.data.anuncio;
-                });
+            getCategorias: function () {
+                this.axios.get(this.baseUrlAPI + 'anuncio').then(response => {
+                    this.anuncios = response.data.anuncios;
+                })
             },
+            editar: function (data) {
+                this.$router.push({name: 'adm.categoria.editar', params: { id: data.id_veiculo_categoria }});
+            }
         },
-        mounted () {
-            this.getAnuncios();
-        },
+        mounted() {
+            this.getCategorias();
+        }
     }
 </script>
 
