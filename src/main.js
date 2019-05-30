@@ -5,8 +5,10 @@ import App from './App'
 import router from './router'
 import axios from "axios/index";
 import Vuex from 'vuex'
+import VueFlashMessage from 'vue-flash-message';
 
 Vue.use(Vuex);
+Vue.use(VueFlashMessage);
 Vue.config.productionTip = false;
 Vue.prototype.baseUrlAPI = 'http://localhost:1234/api/';
 Vue.prototype.axios = axios;

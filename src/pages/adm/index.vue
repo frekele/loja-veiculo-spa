@@ -10,8 +10,8 @@
 </template>
 
 <script>
-    import Navbar from '@/components/layout/navbar'
-    import ContentWrapper from "@/components/layout/content-wrapper";
+    import Navbar from '@/components/layout/adm/navbar'
+    import ContentWrapper from "@/components/layout/adm/content-wrapper";
 
     export default {
         name: 'adm',

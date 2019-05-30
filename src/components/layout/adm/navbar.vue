@@ -77,6 +77,22 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item has-treeview">
+                            <a class="nav-link" style="cursor: pointer">
+                                <i class="nav-icon fa fa-calendar"></i>
+                                <p>
+                                    Contatos do Site
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item has-treeview">
+                            <a class="nav-link" style="cursor: pointer">
+                                <i class="nav-icon fa fa-user"></i>
+                                <p>
+                                    Usuários
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>

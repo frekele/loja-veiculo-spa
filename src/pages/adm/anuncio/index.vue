@@ -10,7 +10,7 @@
                     <div class="card">
                         <div class="card-header">
                             <router-link :to="{ name: 'adm.anuncio.cadastro'}" class="btn btn-sm btn-default">
-                                Cadastrar Categoria
+                                Cadastrar Anúncio
                                 <i class="fa fa-plus"></i>
                             </router-link>
                         </div>
@@ -25,8 +25,8 @@
 </template>
 
 <script>
-    import Navbar from '@/components/layout/navbar'
-    import ContentWrapper from "@/components/layout/content-wrapper";
+    import Navbar from '@/components/layout/adm/navbar'
+    import ContentWrapper from "@/components/layout/adm/content-wrapper";
     import List from "@/components/data/list";
 
     export default {
@@ -46,23 +46,23 @@
                         return data === 1 ? 'Sim' : 'Não'
                     },
                     valor: (data) => {
-                        return data;
+                        return this.formatMoeda(data);
                     }
                 }
             }
         },
         methods: {
-            getCategorias: function () {
+            getAnuncios: function () {
                 this.axios.get(this.baseUrlAPI + 'anuncio').then(response => {
                     this.anuncios = response.data.anuncios;
                 })
             },
             editar: function (data) {
-                this.$router.push({name: 'adm.categoria.editar', params: { id: data.id_veiculo_categoria }});
+                this.$router.push({name: 'adm.anuncio.editar', params: { id: data.id_anuncio }});
             }
         },
         mounted() {
-            this.getCategorias();
+            this.getAnuncios();
         }
     }
 </script>

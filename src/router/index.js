@@ -17,6 +17,8 @@ import VeiculoCadastro from '@/pages/adm/veiculo/form'
 
 import NotFound from '@/pages/not-found'
 import Login from '@/pages/login'
+import Index from '@/pages/index'
+import AnuncioPublico from '@/pages/anuncio'
 
 Vue.use(Router);
 
@@ -103,25 +105,35 @@ const router = new Router({
       name: 'adm.combustivel.editar',
       component: CombustivelCadastro,
     },
-  {
-      path: '/adm/veiculo',
-      name: 'adm.veiculo',
-      component: Veiculo,
-  },
-  {
-      path: '/adm/veiculo/cadastro',
-      name: 'adm.veiculo.cadastro',
-      component: VeiculoCadastro,
-  },
-  {
-      path: '/adm/veiculo/editar/:id',
-      name: 'adm.veiculo.editar',
-      component: VeiculoCadastro,
-  },
+    {
+        path: '/adm/veiculo',
+        name: 'adm.veiculo',
+        component: Veiculo,
+    },
+    {
+        path: '/adm/veiculo/cadastro',
+        name: 'adm.veiculo.cadastro',
+        component: VeiculoCadastro,
+    },
+    {
+        path: '/adm/veiculo/editar/:id',
+        name: 'adm.veiculo.editar',
+        component: VeiculoCadastro,
+    },
     {
       path: '/login',
       name: 'login',
       component: Login,
+    },
+    {
+      path: '/',
+      name: 'index',
+      component: Index,
+    },
+    {
+      path: '/anuncio/:id',
+      name: 'anuncio',
+      component: AnuncioPublico,
     },
     { path: '*', component: NotFound }
   ]

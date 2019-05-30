@@ -105,8 +105,8 @@
 </template>
 
 <script>
-    import Navbar from '@/components/layout/navbar'
-    import ContentWrapper from "@/components/layout/content-wrapper";
+    import Navbar from '@/components/layout/adm/navbar'
+    import ContentWrapper from "@/components/layout/adm/content-wrapper";
 
     export default {
         name: 'adm.veiculo.cadastro',
@@ -246,9 +246,10 @@
                     data: data,
                     headers: header
                 }).then(response => {
+                    this.flash('Veículo salvo com sucesso!', 'success');
                     this.$router.push({name: 'adm.veiculo'});
                 }).catch(response => {
-                    alert('Erro ao salvar' + response.data.message)
+                    this.flash('Erro ao salvar veículo', 'error');
                 });
             }
         },

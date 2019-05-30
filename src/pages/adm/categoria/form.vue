@@ -26,8 +26,8 @@
 </template>
 
 <script>
-    import Navbar from '@/components/layout/navbar'
-    import ContentWrapper from "@/components/layout/content-wrapper";
+    import Navbar from '@/components/layout/adm/navbar'
+    import ContentWrapper from "@/components/layout/adm/content-wrapper";
 
     export default {
         name: 'adm.categoria.cadastro',
@@ -61,9 +61,10 @@
                     data: this.categoria,
                     headers: { Authorization: 'Bearer ' +  this.$store.getters.getUsuario.token }
                 }).then(response => {
+                    this.flash('Salvo com sucesso!', 'success');
                     this.$router.push({name: 'adm.categoria'});
                 }).catch(response => {
-                    alert('Erro ao salvar' + response.data.message)
+                    this.flash('Erro ao salvar', 'error');
                 });
             }
         },

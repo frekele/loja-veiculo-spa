@@ -13,6 +13,7 @@
         </div>
         <section class="content">
             <div class="container-fluid">
+                <flash-message></flash-message>
                 <slot></slot>
             </div>
         </section>

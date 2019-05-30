@@ -33,7 +33,6 @@
                 for (let i in columns) {
                     data = data[columns[i]]
 
-                    console.log(this.format);
                     if (typeof this.format !== 'undefined') {
                         if (this.format.hasOwnProperty(columns[i]) && typeof this.format[columns[i]] === 'function') {
                             data = this.format[columns[i]](data);
