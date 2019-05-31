@@ -3,19 +3,19 @@
         <navbar />
         <content-wrapper>
             <template v-slot:titulo>
-                Categorias
+                Usuários
             </template>
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <router-link :to="{ name: 'adm.categoria.cadastro'}" class="btn btn-sm btn-default">
-                                Cadastrar Categoria
+                            <router-link :to="{ name: 'adm.usuario.cadastro'}" class="btn btn-sm btn-default">
+                                Cadastrar Usuário
                                 <i class="fa fa-plus"></i>
                             </router-link>
                         </div>
                         <div class="card-body table-responsive p-0">
-                            <list :acoes="botoesAcao" :columnName="columnName" :columnData="columnData" :data="categorias" />
+                            <list :acoes="botoesAcao" :columnName="columnName" :columnData="columnData" :data="usuarios" :format="format" />
                         </div>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
     import List from "@/components/data/list";
 
     export default {
-        name: 'adm.categoria',
+        name: 'adm.usuario',
         components: {
             ContentWrapper,
             Navbar,
@@ -38,30 +38,35 @@
         },
         data () {
             return {
-                categorias: [],
-                columnName: ['Descrição'],
-                columnData: ['nome'],
+                usuarios: [],
+                columnName: ['Login', 'Ativo'],
+                columnData: ['login', 'ativo'],
                 botoesAcao: [
                     {
                         'isLink': true,
                         'class': 'btn btn-sm btn-primary',
                         'nomeAcao': 'Editar',
                         'url': function (data) {
-                            return { name: 'adm.categoria.editar', params: { id: data.id_veiculo_categoria }};
+                            return { name: 'adm.usuario.editar', params: { id: data.id_usuario }};
                         }
                     }
-                ]
+                ],
+                format: {
+                    ativo: (data) => {
+                        return data === '1' ? 'Sim' : 'Não'
+                    }
+                },
             }
         },
         methods: {
-            getCategorias: function () {
-                this.axios.get(this.baseUrlAPI + 'veiculo/categoria').then(response => {
-                    this.categorias = response.data;
+            getUsuarios: function () {
+                this.axios.get(this.baseUrlAPI + 'usuario').then(response => {
+                    this.usuarios = response.data.usuarios;
                 })
             }
         },
         mounted() {
-            this.getCategorias();
+            this.getUsuarios();
         }
     }
 </script>

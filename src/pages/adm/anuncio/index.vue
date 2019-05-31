@@ -15,7 +15,7 @@
                             </router-link>
                         </div>
                         <div class="card-body table-responsive p-0">
-                            <list :columnName="columnName" :columnData="columnData" :data="anuncios" :format="format" @editar="editar" />
+                            <list :acoes="botoesAcao" :columnName="columnName" :columnData="columnData" :data="anuncios" :format="format" />
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,37 @@
                     valor: (data) => {
                         return this.formatMoeda(data);
                     }
-                }
+                },
+                botoesAcao: [
+                    {
+                        'isLink': true,
+                        'class': 'btn btn-sm btn-primary',
+                        'nomeAcao': 'Editar',
+                        'url': function (data) {
+                            return { name: 'adm.anuncio.editar', params: { id: data.id_anuncio}};
+                        }
+                    },
+                    {
+                        'isButton': true,
+                        'class': 'btn btn-sm btn-danger',
+                        'nomeAcao': 'Excluir',
+                        'acao': (data) => {
+
+                            let params = {
+                                method: 'delete',
+                                url: this.baseUrlAPI + 'anuncio/deletar/' + data.id_anuncio,
+                                headers: { Authorization: 'Bearer ' +  this.$store.getters.getUsuario.token }
+                            };
+
+                            this.axios(params).then(response => {
+                                this.flash('Excluído com sucesso!', 'success');
+                                this.getAnuncios();
+                            }).catch(error => {
+                                this.flash('Erro ao excluir!', 'error');
+                            });
+                        }
+                    }
+                ]
             }
         },
         methods: {
@@ -57,9 +87,6 @@
                     this.anuncios = response.data.anuncios;
                 })
             },
-            editar: function (data) {
-                this.$router.push({name: 'adm.anuncio.editar', params: { id: data.id_anuncio }});
-            }
         },
         mounted() {
             this.getAnuncios();

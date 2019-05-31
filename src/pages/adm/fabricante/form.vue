@@ -61,9 +61,10 @@
                     data: this.fabricante,
                     headers: { Authorization: 'Bearer ' +  this.$store.getters.getUsuario.token }
                 }).then(response => {
+                    this.flash('Fabricante salvo com sucesso!', 'success');
                     this.$router.push({name: 'adm.fabricante'});
                 }).catch(response => {
-                    alert('Erro ao salvar' + response.data.message)
+                    this.flash('Erro ao salvar Fabricante', 'error');
                 });
             }
         },

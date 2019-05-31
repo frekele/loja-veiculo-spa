@@ -78,20 +78,20 @@
                             </ul>
                         </li>
                         <li class="nav-item has-treeview">
-                            <a class="nav-link" style="cursor: pointer">
+                            <router-link :to="{ name: 'adm.contato'}" class="nav-link" style="cursor: pointer;">
                                 <i class="nav-icon fa fa-calendar"></i>
                                 <p>
                                     Contatos do Site
                                 </p>
-                            </a>
+                            </router-link>
                         </li>
                         <li class="nav-item has-treeview">
-                            <a class="nav-link" style="cursor: pointer">
+                            <router-link :to="{ name: 'adm.usuario'}" class="nav-link" style="cursor: pointer;">
                                 <i class="nav-icon fa fa-user"></i>
                                 <p>
                                     Usuários
                                 </p>
-                            </a>
+                            </router-link>
                         </li>
                     </ul>
                 </nav>

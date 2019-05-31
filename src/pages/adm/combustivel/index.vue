@@ -15,7 +15,7 @@
                             </router-link>
                         </div>
                         <div class="card-body table-responsive p-0">
-                            <list :columnName="columnName" :columnData="columnData" :data="combustiveis" @editar="editar" />
+                            <list :acoes="botoesAcao" :columnName="columnName" :columnData="columnData" :data="combustiveis" />
                         </div>
                     </div>
                 </div>
@@ -41,6 +41,16 @@
                 combustiveis: [],
                 columnName: ['Descrição'],
                 columnData: ['nome'],
+                botoesAcao: [
+                    {
+                        'isLink': true,
+                        'class': 'btn btn-sm btn-primary',
+                        'nomeAcao': 'Editar',
+                        'url': function (data) {
+                            return { name: 'adm.combustivel.editar', params: { id: data.id_veiculo_combustivel }};
+                        }
+                    }
+                ]
             }
         },
         methods: {
@@ -48,9 +58,6 @@
                 this.axios.get(this.baseUrlAPI + 'veiculo/combustivel').then(response => {
                     this.combustiveis = response.data;
                 })
-            },
-            editar: function (data) {
-                this.$router.push({name: 'adm.combustivel.editar', params: { id: data.id_veiculo_combustivel }});
             }
         },
         mounted() {

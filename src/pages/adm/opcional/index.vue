@@ -15,7 +15,7 @@
                             </router-link>
                         </div>
                         <div class="card-body table-responsive p-0">
-                            <list :columnName="columnName" :columnData="columnData" :data="opcionais" @editar="editar" />
+                            <list :acoes="botoesAcao" :columnName="columnName" :columnData="columnData" :data="opcionais" />
                         </div>
                     </div>
                 </div>
@@ -41,6 +41,16 @@
                 opcionais: [],
                 columnName: ['Descrição'],
                 columnData: ['nome'],
+                botoesAcao: [
+                    {
+                        'isLink': true,
+                        'class': 'btn btn-sm btn-primary',
+                        'nomeAcao': 'Editar',
+                        'url': function (data) {
+                            return { name: 'adm.opcional.editar', params: { id: data.id_opcional }};
+                        }
+                    }
+                ]
             }
         },
         methods: {
@@ -49,9 +59,6 @@
                     this.opcionais = response.data;
                 })
             },
-            editar: function (data) {
-                this.$router.push({name: 'adm.opcional.editar', params: { id: data.id_opcional }});
-            }
         },
         mounted() {
             this.getOpcionais();

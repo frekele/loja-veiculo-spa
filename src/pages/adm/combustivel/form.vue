@@ -61,9 +61,10 @@
                     data: this.combustivel,
                     headers: { Authorization: 'Bearer ' +  this.$store.getters.getUsuario.token }
                 }).then(response => {
+                    this.flash('Tipo de combustível salvo com sucesso!', 'success');
                     this.$router.push({name: 'adm.combustivel'});
                 }).catch(response => {
-                    alert('Erro ao salvar' + response.data.message)
+                    this.flash('Erro ao salvar tipo de combustível', 'error');
                 });
             }
         },

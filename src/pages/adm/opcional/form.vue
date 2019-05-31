@@ -61,9 +61,10 @@
                     data: this.opcional,
                     headers: { Authorization: 'Bearer ' +  this.$store.getters.getUsuario.token }
                 }).then(response => {
+                    this.flash('Opcional salvo com sucesso!', 'success');
                     this.$router.push({name: 'adm.opcional'});
                 }).catch(response => {
-                    alert('Erro ao salvar' + response.data.message)
+                    this.flash('Erro ao salvar opcional', 'error');
                 });
             }
         },

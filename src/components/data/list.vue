@@ -3,17 +3,23 @@
         <thead>
             <tr>
                 <th v-for="head in columnName">{{ head }}</th>
-                <th>Ação</th>
+                <th v-if="acoes">Ação</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody v-if="data.length > 0">
             <tr v-for="d in data">
                 <td v-for="column in columnData">{{ montarVisualizacao(d, column) }}</td>
-                <td>
-                    <button v-on:click="editar(d)" class="btn btn-sm btn-primary">
-                        Editar
-                    </button>
+                <td v-if="acoes">
+                    <div v-for="acao in acoes">
+                        <button v-if="acao.isButton" :class="acao.class" v-on:click="acao.acao(d)">{{ acao.nomeAcao }}</button>
+                        <router-link v-else-if="acao.isLink" :class="acao.class" :to="acao.url(d)" >{{ acao.nomeAcao }}</router-link>
+                    </div>
                 </td>
+            </tr>
+        </tbody>
+        <tbody v-else>
+            <tr>
+                <td :colspan="columnName.length + acoes.length">Nenhum registro encontrado</td>
             </tr>
         </tbody>
     </table>
@@ -21,23 +27,27 @@
 <script>
     export default {
         name: 'List',
-        props: ['columnName', 'data', 'columnData', 'format'],
+        props: ['columnName', 'data', 'columnData', 'format', 'acoes'],
         methods: {
-            editar(data) {
-                this.$emit('editar', data);
-            },
             montarVisualizacao(d, column) {
                 let columns = column.split('.');
                 let data = d;
 
                 for (let i in columns) {
-                    data = data[columns[i]]
 
-                    if (typeof this.format !== 'undefined') {
-                        if (this.format.hasOwnProperty(columns[i]) && typeof this.format[columns[i]] === 'function') {
-                            data = this.format[columns[i]](data);
+                    data = data[columns[i]];
+
+                    if (data === null) {
+                        return ''
+                    } else {
+                        if (typeof this.format !== 'undefined') {
+                            if (this.format.hasOwnProperty(columns[i]) && typeof this.format[columns[i]] === 'function') {
+                                data = this.format[columns[i]](data);
+                            }
                         }
+
                     }
+
                 }
 
                 return data;

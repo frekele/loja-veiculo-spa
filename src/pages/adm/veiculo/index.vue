@@ -15,7 +15,7 @@
                             </router-link>
                         </div>
                         <div class="card-body table-responsive p-0">
-                            <list :columnName="columnName" :columnData="columnData" :data="veiculos" @editar="editar" />
+                            <list :acoes="botoesAcao" :columnName="columnName" :columnData="columnData" :data="veiculos" />
                         </div>
                     </div>
                 </div>
@@ -40,7 +40,17 @@
             return {
                 veiculos: [],
                 columnName: ['Descrição', 'Ano/Modelo', 'Placa'],
-                columnData: ['descricao', 'ano_modelo', 'placa']
+                columnData: ['descricao', 'ano_modelo', 'placa'],
+                botoesAcao: [
+                    {
+                        'isLink': true,
+                        'class': 'btn btn-sm btn-primary',
+                        'nomeAcao': 'Editar',
+                        'url': function (data) {
+                            return { name: 'adm.veiculo.editar', params: { id: data.id_veiculo }};
+                        }
+                    }
+                ]
             }
         },
         methods: {

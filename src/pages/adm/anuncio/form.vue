@@ -141,9 +141,7 @@
                             'Content-Type': 'multipart/form-data'
                         }
                     }).then(response => {
-                        this.$router.push({name: 'adm.veiculo'});
                     }).catch(response => {
-                        alert('Erro ao salvar' + response.data.message)
                     });
 
                 } else {

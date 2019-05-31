@@ -15,7 +15,7 @@
                             </router-link>
                         </div>
                         <div class="card-body table-responsive p-0">
-                            <list :columnName="columnName" :columnData="columnData" :data="fabricantes" @editar="editar" />
+                            <list :acoes="botoesAcao" :columnName="columnName" :columnData="columnData" :data="fabricantes" />
                         </div>
                     </div>
                 </div>
@@ -41,6 +41,16 @@
                 fabricantes: [],
                 columnName: ['Descrição'],
                 columnData: ['nome'],
+                botoesAcao: [
+                    {
+                        'isLink': true,
+                        'class': 'btn btn-sm btn-primary',
+                        'nomeAcao': 'Editar',
+                        'url': function (data) {
+                            return { name: 'adm.fabricante.editar', params: { id: data.id_veiculo_fabricante }};
+                        }
+                    }
+                ]
             }
         },
         methods: {
@@ -48,9 +58,6 @@
                 this.axios.get(this.baseUrlAPI + 'veiculo/fabricante').then(response => {
                     this.fabricantes = response.data;
                 })
-            },
-            editar: function (data) {
-                this.$router.push({name: 'adm.fabricante.editar', params: { id: data.id_veiculo_fabricante}});
             }
         },
         mounted() {

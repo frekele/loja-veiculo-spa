@@ -3,6 +3,9 @@ import Router from 'vue-router'
 
 import HomeAdm from '@/pages/adm/index'
 import Anuncio from '@/pages/adm/anuncio/index'
+import Contato from '@/pages/adm/contato/index'
+import Usuario from '@/pages/adm/usuario/index'
+import UsuarioCadastro from '@/pages/adm/usuario/form'
 import AnuncioCadastro from '@/pages/adm/anuncio/form'
 import Categoria from '@/pages/adm/categoria/index';
 import CategoriaCadastro from '@/pages/adm/categoria/form'
@@ -29,6 +32,26 @@ const router = new Router({
       path: '/adm',
       name: 'adm',
       component: HomeAdm,
+    },
+    {
+      path: '/adm/contato',
+      name: 'adm.contato',
+      component: Contato,
+    },
+    {
+      path: '/adm/usuario',
+      name: 'adm.usuario',
+      component: Usuario,
+    },
+    {
+      path: '/adm/usuario/cadastro',
+      name: 'adm.usuario.cadastro',
+      component: UsuarioCadastro,
+    },
+    {
+      path: '/adm/usuario/editar/:id',
+      name: 'adm.usuario.editar',
+      component: UsuarioCadastro,
     },
     {
       path: '/adm/anuncio',
