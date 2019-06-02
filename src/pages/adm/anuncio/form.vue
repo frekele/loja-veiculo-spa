@@ -22,6 +22,21 @@
                                         <label for="nome">Valor</label>
                                         <input v-model="anuncio.valor" type="text" class="form-control" id="nome" placeholder="Valor">
                                     </div>
+                                    <div class="form-group">
+                                        <label for="observacao">Observacao</label>
+                                        <textarea  class="form-control" id="observacao" placeholder="Observacao" v-model="anuncio.observacao"></textarea>
+                                    </div>
+                                    <div class="radio">
+                                        <label>Ativo</label><br/>
+                                        <label>
+                                            <input name="radio" v-model="anuncio.ativo" type="radio" value="1">
+                                            Sim
+                                        </label>
+                                        <label style="margin-left: 10px">
+                                            <input name="radio" v-model="anuncio.ativo" type="radio" value="0">
+                                           Nao
+                                        </label>
+                                    </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
@@ -70,7 +85,8 @@
                     id_veiculo: '',
                     valor: '',
                     observacao: '',
-                    imagem_capa: ''
+                    imagem_capa: '',
+                    ativo: ''
                 },
                 veiculos: [],
                 urlImg: 'http://localhost:1234/upload/anuncio/',
@@ -80,7 +96,7 @@
         },
         methods: {
             processFile(event) {
-                this.anuncio.imagem_capa = event.target.files;
+                this.anuncio.imagem_capa = event.target.files[0];
             },
             removerImagem: function (img) {
                 this.todasImagens.splice(this.todasImagens.indexOf(img), 1);
@@ -91,10 +107,14 @@
                 this.axios.get(url + this.$route.params.id).then(response => {
 
                     this.anuncio = response.data.anuncio;
-                    this.todasImagens.push(JSON.parse(JSON.stringify(response.data.anuncio.imagem_capa)));
                     this.anuncio.imagem_capa = response.data.anuncio.imagem_capa;
-                })
 
+                    let img = JSON.parse(JSON.stringify(response.data.anuncio)).imagem_capa;
+
+                    if (img !== '' && img !== null) {
+                        this.todasImagens.push(img);
+                    }
+                })
             },
             getVeiculos: function () {
 
@@ -127,22 +147,32 @@
                 if (typeof this.$route.params.id !== 'undefined') {
                     method = 'put';
                     url += 'editar/' + this.$route.params.id;
+
+                    if (this.anuncio.imagem_capa !== '' && this.anuncio.imagem_capa !== null) {
+
+                        let formData = new FormData();
+                        formData.append('imagem_capa[1]', this.anuncio.imagem_capa);
+                        formData.append('imagem_capa_delete', this.todasImagens.length);
+
+                        this.axios({
+                            method: 'post',
+                            url: this.baseUrlAPI + 'anuncio/edit-imagem/' + this.$route.params.id,
+                            data: formData,
+                            headers: {
+                                Authorization: 'Bearer ' +  this.$store.getters.getUsuario.token,
+                                'Content-Type': 'multipart/form-data'
+                            }
+                        }).then(response => {
+                            this.anuncio.imagem_capa = null;
+                        }).catch(response => {
+                        });
+                    }
+
                     data = this.anuncio;
 
-                    let formData = new FormData();
-                    formData.append('imagem_capa[1]', this.anuncio.imagem_capa[0]);
-
-                    this.axios({
-                        method: 'post',
-                        url: this.baseUrlAPI + 'anuncio/edit-imagem/' + this.$route.params.id,
-                        data: formData,
-                        headers: {
-                            Authorization: 'Bearer ' +  this.$store.getters.getUsuario.token,
-                            'Content-Type': 'multipart/form-data'
-                        }
-                    }).then(response => {
-                    }).catch(response => {
-                    });
+                    if (this.todasImagens.length === 0) {
+                        data.imagem_capa = null;
+                    }
 
                 } else {
                     method = 'post';
@@ -151,7 +181,11 @@
                     let formData = new FormData();
                     formData.append('valor', this.anuncio.valor);
                     formData.append('id_veiculo', this.anuncio.id_veiculo);
-                    formData.append('imagem_capa[1]', this.anuncio.imagem_capa[0]);
+                    formData.append('observacao', this.anuncio.observacao);
+
+                    if (this.anuncio.imagem_capa !== '') {
+                        formData.append('imagem_capa[1]', this.anuncio.imagem_capa[0])
+                    }
 
                     data = formData;
                 }

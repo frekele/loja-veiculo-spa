@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row" style="margin-top: 15px">
                 <div class="col-12">
-                    <h5 v-if="anuncio">Anuncio {{ anuncio.veiculo.descricao }}</h5>
+                    <h5 v-if="anuncio">Anuncio {{ anuncio.veiculo.descricao }} <span v-if="!anuncio.ativo" style="color: red"> - Desativado</span></h5>
                     <div class="card" style="margin-top: 15px;">
                         <div class="card-horizontal">
                             <div class="card-body">
@@ -61,7 +61,7 @@
                                             </ul>
                                             <h2>
                                                 {{ formatMoeda(anuncio.valor) }}
-                                                <button type="button" data-toggle="modal" data-target="#modal_contato" class="btn btn-success float-right">Envie sua proposta</button>
+                                                <button v-if="anuncio.ativo" type="button" data-toggle="modal" data-target="#modal_contato" class="btn btn-success float-right">Envie sua proposta</button>
                                             </h2>
                                         </div>
                                     </div>

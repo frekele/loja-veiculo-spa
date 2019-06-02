@@ -60,7 +60,7 @@
                     },
                     {
                         'isButton': true,
-                        'class': 'btn btn-sm btn-danger',
+                        'class': 'btn btn-sm btn-danger margin-left-btn-list',
                         'nomeAcao': 'Excluir',
                         'acao': (data) => {
 
@@ -77,7 +77,15 @@
                                 this.flash('Erro ao excluir!', 'error');
                             });
                         }
-                    }
+                    },
+                    {
+                        'isLink': true,
+                        'class': 'btn btn-sm btn-info margin-left-btn-list',
+                        'nomeAcao': 'Ver Anuncio',
+                        'url': function (data) {
+                            return { name: 'anuncio', params: { id: data.id_anuncio }};
+                        }
+                    },
                 ]
             }
         },

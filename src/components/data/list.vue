@@ -10,10 +10,8 @@
             <tr v-for="d in data">
                 <td v-for="column in columnData">{{ montarVisualizacao(d, column) }}</td>
                 <td v-if="acoes">
-                    <div v-for="acao in acoes">
-                        <button v-if="acao.isButton" :class="acao.class" v-on:click="acao.acao(d)">{{ acao.nomeAcao }}</button>
-                        <router-link v-else-if="acao.isLink" :class="acao.class" :to="acao.url(d)" >{{ acao.nomeAcao }}</router-link>
-                    </div>
+                    <button v-for="acao in acoes" v-if="acao.isButton" :class="acao.class" v-on:click="acao.acao(d)">{{ acao.nomeAcao }}</button>
+                    <router-link target="_blank" v-else-if="acao.isLink" :class="acao.class" :to="acao.url(d)" >{{ acao.nomeAcao }}</router-link>
                 </td>
             </tr>
         </tbody>
@@ -55,3 +53,8 @@
         }
     };
 </script>
+<style scoped>
+    .margin-left-btn-list {
+        margin-left: 10px;
+    }
+</style>

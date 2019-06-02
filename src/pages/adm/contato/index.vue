@@ -9,7 +9,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body table-responsive p-0">
-                            <list :acoes="botoesAcao" :columnName="columnName" :columnData="columnData" :data="contatos" :format="format" />
+                            <list :acoes="botoesAcao" :columnName="columnName" :columnData="columnData" :data="contatos" />
                         </div>
                     </div>
                 </div>
@@ -24,9 +24,9 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p>
+                            <p v-if="contato.id_anuncio">
                                <router-link :to="{ name: 'adm.anuncio.editar', params: {id: contato.id_anuncio } }" target="_blank">
-                                    Clique para para acessar o anúncio que este cliente fez o contato
+                                    Clique para acessar o anúncio que este cliente fez o contato
                                </router-link>
                             </p>
                             <div class="form-group">
@@ -48,7 +48,8 @@
                             <hr>
                             <div class="form-group">
                                 <label class="col-form-label">Veículo</label>
-                                <p>{{ contato.anuncio.veiculo.descricao }}</p>
+                                <p v-if="contato.anuncio">{{ contato.anuncio.veiculo.descricao }}</p>
+                                <p v-else>{{ contato.veiculo.descricao }}</p>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -67,7 +68,7 @@
     import List from "@/components/data/list";
 
     export default {
-        name: 'adm.opcional',
+        name: 'adm.contato',
         components: {
             ContentWrapper,
             Navbar,
@@ -86,34 +87,26 @@
                         'nomeAcao': 'Visualizar',
                         'acao': (data) => {
 
-                            this.axios.get(this.baseUrlAPI + 'anuncio/contato/' + data.id_anuncio_contato).then(response => {
+                            if (data.anuncio === null) {
+                                if (typeof data.data === 'string') {
+                                    let d = JSON.parse(data.data);
+                                    let descricao = d.veiculo.descricao;
 
-                                let data = response.data;
-
-                                if (data.contato.anuncio === null) {
-                                    if (typeof data.contato.data === 'string') {
-                                        this.contato = JSON.parse(data.contato.data);
-                                    }
-                                } else {
-                                    this.contato = data.contato;
+                                    this.contato = data;
+                                    this.contato.anuncio = { veiculo: { descricao: '' }};
+                                    this.contato.anuncio.veiculo.descricao = descricao;
                                 }
+                            } else {
+                                this.contato = data;
+                            }
 
-                                $('#modal_contato').modal({
-                                    backdrop: 'static',
-                                    show: true
-                                });
-
-                            }).catch(response => {
-                                this.flash('Erro ao buscar contato', 'error');
+                            $('#modal_contato').modal({
+                                backdrop: 'static',
+                                show: true
                             });
                         }
                     }
                 ],
-                format: {
-                    descricao: function (data) {
-                     return 'asddddd';
-                    }
-                }
             }
         },
         methods: {
