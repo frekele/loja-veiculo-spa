@@ -19,7 +19,7 @@
             <router-link :to="{ name: 'adm'}" class="nav-link text-center text-white">
                 <span>Loja de </span>
                 <span class="brand-text font-weight-light">
-                    <i>Veiculos</i>
+                    <i>Veículos</i>
                 </span>
             </router-link>
             <div class="sidebar">
@@ -42,7 +42,7 @@
                                 <li class="nav-item">
                                     <router-link style="color: white" :to="{ name: 'adm.anuncio'}" class="nav-link">
                                         <i class="fa fa-circle-o nav-icon"></i>
-                                        <p>Anuncio</p>
+                                        <p>Anúncio</p>
                                     </router-link>
                                 </li>
                                 <li class="nav-item">

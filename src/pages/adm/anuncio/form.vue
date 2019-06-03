@@ -184,7 +184,7 @@
                     formData.append('observacao', this.anuncio.observacao);
 
                     if (this.anuncio.imagem_capa !== '') {
-                        formData.append('imagem_capa[1]', this.anuncio.imagem_capa[0])
+                        formData.append('imagem_capa[1]', this.anuncio.imagem_capa);
                     }
 
                     data = formData;
