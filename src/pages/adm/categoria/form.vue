@@ -63,8 +63,8 @@
                 }).then(response => {
                     this.flash('Salvo com sucesso!', 'success');
                     this.$router.push({name: 'adm.categoria'});
-                }).catch(response => {
-                    this.flash('Erro ao salvar', 'error');
+                }).catch(error => {
+                    this.flash('Erro ao salvar<br/>'  + error.response.data.message, 'error');
                 });
             }
         },

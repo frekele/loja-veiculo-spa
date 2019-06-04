@@ -198,9 +198,8 @@
                 }).then(response => {
                     this.flash('Anúncio salvo com sucesso!', 'success');
                     this.$router.push({name: 'adm.anuncio'});
-                }).catch(response => {
-                    console.log(response);
-                    this.flash('Erro ao salvar anúncio ', 'error');
+                }).catch(error => {
+                    this.flash('Erro ao salvar anúncio <br/>'  + error.response.data.message, 'error');
                 });
             }
         },

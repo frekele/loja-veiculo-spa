@@ -248,8 +248,8 @@
                 }).then(response => {
                     this.flash('Veículo salvo com sucesso!', 'success');
                     this.$router.push({name: 'adm.veiculo'});
-                }).catch(response => {
-                    this.flash('Erro ao salvar veículo', 'error');
+                }).catch(error => {
+                    this.flash('Erro ao salvar veículo<br/>'  + error.response.data.message, 'error');
                 });
             }
         },

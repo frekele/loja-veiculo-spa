@@ -63,8 +63,8 @@
                 }).then(response => {
                     this.flash('Opcional salvo com sucesso!', 'success');
                     this.$router.push({name: 'adm.opcional'});
-                }).catch(response => {
-                    this.flash('Erro ao salvar opcional', 'error');
+                }).catch(error => {
+                    this.flash('Erro ao salvar opcional<br/>'  + error.response.data.message, 'error');
                 });
             }
         },

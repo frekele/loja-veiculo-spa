@@ -63,8 +63,8 @@
                 }).then(response => {
                     this.flash('Fabricante salvo com sucesso!', 'success');
                     this.$router.push({name: 'adm.fabricante'});
-                }).catch(response => {
-                    this.flash('Erro ao salvar Fabricante', 'error');
+                }).catch(error => {
+                    this.flash('Erro ao salvar Fabricante <br/>'  + error.response.data.message, 'error');
                 });
             }
         },

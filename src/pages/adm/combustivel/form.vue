@@ -63,8 +63,8 @@
                 }).then(response => {
                     this.flash('Tipo de combustível salvo com sucesso!', 'success');
                     this.$router.push({name: 'adm.combustivel'});
-                }).catch(response => {
-                    this.flash('Erro ao salvar tipo de combustível', 'error');
+                }).catch(error => {
+                    this.flash('Erro ao salvar tipo de combustível <br/>'  + error.response.data.message, 'error');
                 });
             }
         },
